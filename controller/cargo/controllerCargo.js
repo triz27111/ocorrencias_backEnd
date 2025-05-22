@@ -4,14 +4,17 @@ const cargoDAO = require('../../model/DAO/cargo.js')
 
 //função para inserir um cargo
 const inserirCargo = async function(cargo, contentType){
+    
   try {
-    if(String(contentType).toLowerCase() == 'aplication/json'){
-        if(cargo.nome == '' || cargo.nome == null || cargo.nome == undefined || cargo.nome.length > 100
+    if(String(contentType).toLowerCase() == 'application/json'){
+        
+        if(cargo.nome == '' || cargo.nome == null || cargo.nome == undefined || cargo.nome.length > 45
         
         ){
             return message.ERROR_REQUIRED_FIELDS
+            
         }else{
-            let resultCargo = await cargoDAO.insertCargo
+            let resultCargo = await cargoDAO.insertCargo(cargo)
 
             if(resultCargo)
                return message.SUCESS_CREATED_ITEM //201
@@ -142,4 +145,12 @@ const buscarCargo = async function (id) {
     } catch (error) {
         return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
     }
+}
+
+module.exports = {
+    inserirCargo,
+    atualizarCargo,
+    excluirCargo,
+    listarCargo,
+    buscarCargo
 }

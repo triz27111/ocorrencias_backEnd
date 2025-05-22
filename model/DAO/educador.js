@@ -12,9 +12,9 @@ const insertEducador = async function(educador){
                                             id_cargo
                                             )
                                             values(
-                                                '${educador.Nome}',
-                                                '${educador.Senha}',
-                                                '${educador.Email}',
+                                                '${educador.nome}',
+                                                '${educador.senha}',
+                                                '${educador.email}',
                                                 '${educador.palavra_chave}',
                                                 '${educador.id_cargo}'
                                             )`
