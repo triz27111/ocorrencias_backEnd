@@ -26,8 +26,11 @@ app.use((request, response, next)=>{
 
 const ControllerEducador =  require('./controller/educador/Controllereducador.js')
 const ControllerCargo =  require('./controller/cargo/controllerCargo.js')
+<<<<<<< HEAD
 const ControllerAluno = require('./controller/alunos/ControllerAlunos.js')
 const ControllerTurma = require('./controller/turma/controllerTurma.js')
+=======
+>>>>>>> eb5e457e91809969a65d5ff02b6598c2f996c95e
 
 //Endpoint para inserir educadores
 app.post('/v1/registro-ocorrencias/educador', cors(), bodyParserJSON, async function(request, response){
@@ -103,6 +106,7 @@ app.put('/v1/registro-ocorrencias/cargo/:id', cors(), bodyParserJSON, async func
     response.status(resultCargo.status_code)
     response.json(resultCargo)
 })
+<<<<<<< HEAD
 
 ////////////////////////////////////////////// A L U N O S ///////////////////////////////////////////////////
 
@@ -138,5 +142,8 @@ app.post('/v1/registro-ocorrencias/turma', cors(), bodyParserJSON, async functio
     response.json(resultTurma)
 })
 app.listen('7070', function(){
+=======
+app.listen('8080', function(){
+>>>>>>> eb5e457e91809969a65d5ff02b6598c2f996c95e
     console.log('API funcionando e aguardando requisições..')
 })
