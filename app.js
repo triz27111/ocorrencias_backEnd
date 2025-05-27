@@ -101,6 +101,6 @@ app.put('/v1/registro-ocorrencias/cargo/:id', cors(), bodyParserJSON, async func
     response.status(resultCargo.status_code)
     response.json(resultCargo)
 })
-app.listen('7070', function(){
+app.listen('8080', function(){
     console.log('API funcionando e aguardando requisições..')
 })
