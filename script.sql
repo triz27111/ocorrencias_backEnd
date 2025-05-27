@@ -19,7 +19,26 @@ foreign key (id_cargo)
 references tbl_cargo(id)
 );
 
+create table tbl_turma(
+	id int not null primary key auto_increment,
+    nome varchar(45) not null
+);
+
+create table tbl_alunos(
+	id int not null primary key auto_increment,
+    nome varchar(45) not null,
+    matricula varchar(45) not null,
+    data_nascimento datetime not null,
+    id_turma int not null,
+    constraint FK_TURMA_ALUNOS
+    foreign key (id_turma) references tbl_turma(id)
+)
+
 show tables ;
+
+ALTER TABLE tbl_turma
+ADD COLUMN periodo VARCHAR(20) NOT NULL;
+
 
 select * from tbl_educador;
 
