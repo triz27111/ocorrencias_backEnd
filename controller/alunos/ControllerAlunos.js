@@ -2,6 +2,8 @@ const message = require('../../modulo/config.js')
 
 const alunosDAO = require('../../model/DAO/alunos.js')
 
+const controllerTurma = require('../../controller/turma/controllerTurma.js')
+
 
 const inserirAluno = async function (alunos, contentType){
 
@@ -45,6 +47,18 @@ const listarAluno = async function(){
                 dadosAluno.status = true
                 dadosAluno.status_code = 200,
                 dadosAluno.itens = resultAluno.length
+
+                for (const itemAluno  of resultAluno) {
+
+                    let dadosTurma = await controllerTurma.listarTurma(itemAluno.id_turma)
+
+                itemAluno.turma = dadosTurma.turma
+                
+                delete itemAluno.id_turma
+                arrayAlunos.push(itemAluno)  
+                }
+                dadosAluno.turma = arrayAlunos
+
                 dadosAluno.cargos = resultAluno
                 return dadosAluno
             }else{

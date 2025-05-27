@@ -27,6 +27,7 @@ app.use((request, response, next)=>{
 const ControllerEducador =  require('./controller/educador/Controllereducador.js')
 const ControllerCargo =  require('./controller/cargo/controllerCargo.js')
 const ControllerAluno = require('./controller/alunos/ControllerAlunos.js')
+const ControllerTurma = require('./controller/turma/controllerTurma.js')
 
 //Endpoint para inserir educadores
 app.post('/v1/registro-ocorrencias/educador', cors(), bodyParserJSON, async function(request, response){
@@ -123,6 +124,18 @@ app.get('/v1/registro-ocorrencias/alunos', cors(), bodyParserJSON, async functio
 
     response.status(resultAluno.status_code)
     response.json(resultAluno)
+})
+
+app.post('/v1/registro-ocorrencias/turma', cors(), bodyParserJSON, async function(request, response){
+
+    let contentType = request.headers['content-type']
+
+    let dadosbody = request.body
+
+    let resultTurma = await ControllerTurma.inserirTurma(dadosbody, contentType)
+
+    response.status(resultTurma.status_code)
+    response.json(resultTurma)
 })
 app.listen('7070', function(){
     console.log('API funcionando e aguardando requisições..')

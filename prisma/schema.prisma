@@ -12,22 +12,3 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-
-model Educador {
-  id           Int    @id @default(autoincrement())
-  nome         String
-  senha        String
-  email        String
-  palavra_chave String
-  id_cargo     Int
-
-  @@map("tbl_educador")  // garante que a tabela criada tenha esse nome no banco
-}
-
-model tbl_cargo {
-  id   Int    @id @default(autoincrement())
-  nome String
-}
-
-
-
