@@ -40,7 +40,10 @@ const updateCargo = async function (cargo){
 //função para deletar uma genero 
 const deleteCargo = async function (id) {
     try {
+        
         let sql = `delete from tbl_cargo where id = ${id}`
+
+     
 
         let result = await prisma.$executeRawUnsafe(sql)
 
@@ -49,6 +52,7 @@ const deleteCargo = async function (id) {
     else
     return false
     } catch (error) {
+   
         return false
     }
     

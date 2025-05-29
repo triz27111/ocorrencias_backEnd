@@ -19,7 +19,7 @@ const insertTurma = async function(turma){
         else
          return false
     } catch (error) {
-        console.log(error)
+       
         return false
     }
 }

@@ -91,7 +91,8 @@ app.get('/v1/registro-ocorrencias/cargo/:id', cors(), async function(request, re
 //Endpoint pesquisar e deletar musicas pelo id
 app.delete('/v1/registro-ocorrencias/cargo/:id', cors(), async function(request, response){
    let idCargo = request.params.id
-   console.log(idCargo)
+
+
    let resultCargo = await ControllerCargo.excluirCargo(idCargo)
 
    response.status(resultCargo.status_code)
@@ -113,7 +114,7 @@ app.put('/v1/registro-ocorrencias/cargo/:id', cors(), bodyParserJSON, async func
 ////////////////////////////////////////////// A L U N O S ///////////////////////////////////////////////////
 
 //endpoint para adiconar novos alunos 
-app.post('/v1/registro-ocorrencias/alunos/', cors(), bodyParserJSON, async function (request, response) {
+app.post('/v1/registro-ocorrencias/alunos', cors(), bodyParserJSON, async function (request, response) {
     let contentType = request.headers['content-type']
 
     let dadosbody = request.body
@@ -131,6 +132,7 @@ app.get('/v1/registro-ocorrencias/alunos', cors(), bodyParserJSON, async functio
     response.status(resultAluno.status_code)
     response.json(resultAluno)
 })
+////////////////////////////////////////////// T U R M A ///////////////////////////////////////////////////
 
 app.post('/v1/registro-ocorrencias/turma', cors(), bodyParserJSON, async function(request, response){
 
@@ -139,6 +141,48 @@ app.post('/v1/registro-ocorrencias/turma', cors(), bodyParserJSON, async functio
     let dadosbody = request.body
 
     let resultTurma = await ControllerTurma.inserirTurma(dadosbody, contentType)
+
+    response.status(resultTurma.status_code)
+    response.json(resultTurma)
+})
+
+//Endpoint para listar todos os cargos
+app.get('/v1/registro-ocorrencias/turma',cors(), bodyParserJSON, async function(request, response){
+    let  resultTurma = await ControllerTurma.listarTurma()
+
+    response.status(resultTurma.status_code)
+    response.json(resultTurma)
+})
+
+//Endpoint para pesquisar pelo ID
+app.get('/v1/registro-ocorrencias/turma/:id', cors(), async function(request, response){
+
+    let idTurma = request.params.id
+
+    let resultTurma = await ControllerTurma.buscarTurma(idTurma)
+
+    response.status(resultTurma.status_code)
+    response.json(resultTurma)
+})
+
+//Endpoint pesquisar e deletar musicas pelo id
+app.delete('/v1/registro-ocorrencias/turma/:id', cors(), async function(request, response){
+   let idTurma = request.params.id
+
+
+   let resultTurma = await ControllerTurma.excluirTurma(idTurma)
+
+   response.status(resultTurma.status_code)
+   response.json(resultTurma)
+})
+    
+app.put('/v1/registro-ocorrencias/turma/:id', cors(), bodyParserJSON, async function(request, response){
+    let contentType = request.headers['content-type']
+
+    let idTurma = request.params.id
+    let dadosbody = request.body
+
+    let resultTurma = await ControllerTurma.atualizarTurma(idTurma, dadosbody, contentType)
 
     response.status(resultTurma.status_code)
     response.json(resultTurma)

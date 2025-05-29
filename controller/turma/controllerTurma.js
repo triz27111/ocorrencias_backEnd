@@ -40,7 +40,7 @@ const atualizarTurma = async function (id, turma, contentType) {
                     if (result.length > 0) {
                         
                         turma.id = id
-                        let resultTurma = await turmaDAO.updateturma(turma)
+                        let resultTurma = await turmaDAO.updateTurma(turma)
                         if (resultTurma) {
                             return message.SUCESS_UPDATE_ITEM
                         } else {
@@ -89,9 +89,9 @@ const excluirTurma = async function (id) {
 
 const listarTurma = async function () {
     try {
-        let dadosCargo = {}
+        let dadosTurma = {}
 
-        let resultTurma= await turmaDAO.selectAllturma()
+        let resultTurma= await turmaDAO.selectAllTurma()
 
         if (resultTurma != false || typeof (resultTurma) == 'object') {
             if (resultTurma.length > 0) {
