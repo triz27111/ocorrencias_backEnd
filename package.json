@@ -5,5 +5,15 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "prisma": "^6.8.2"
-  }
+  },
+  "name": "ocorrencias_backend",
+  "version": "1.0.0",
+  "description": "\u0000",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

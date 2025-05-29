@@ -56,7 +56,7 @@ const listarEducador = async function(){
 
                     arrayEducador.push(itemEducador)
                 }
-                dadosEducador.cargos = resultEducador
+                dadosEducador.educadores = resultEducador
                 return dadosEducador
             }else{
                 return message.ERROR_NOT_FOUND //404
