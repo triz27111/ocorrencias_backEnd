@@ -34,7 +34,7 @@ const atualizarTurma = async function (id, turma, contentType) {
                 return message.ERROR_REQUIRED_FIELDS
             } else {
                 
-                let result = await turmaDAO.selectByIdturma(id)
+                let result = await turmaDAO.selectByIdTurma(id)
 
                 if (result != false || typeof (result) == 'object') {
                     if (result.length > 0) {

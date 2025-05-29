@@ -66,9 +66,11 @@ const atualizarCargo = async function (id, cargo, contentType) {
 // Função para deletar um cargo 
 const excluirCargo = async function (id) {
     try {
+        console.log(id)
         if (id == '' || id == null || id == undefined || isNaN(id)) {
             return message.ERROR_REQUIRED_FIELDS // 400
         } else {
+            
             let resultCargo = await cargoDAO.selectByIdCargo(id)
 
             if (resultCargo != false || typeof (resultCargo) == 'object') {

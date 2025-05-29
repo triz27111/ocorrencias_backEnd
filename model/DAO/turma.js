@@ -1,4 +1,4 @@
-const {Prisma, PrismaClient } = require("@prisma/client")
+const { PrismaClient } = require("@prisma/client")
 
 const prisma = new PrismaClient()
 
@@ -12,7 +12,7 @@ const insertTurma = async function(turma){
                                           '${turma.periodo}'
                                           )`
 
-        let result = await prisma.$executeRawUnsafe(sql)
+        let result = await prisma.$executeRawUnsafe (sql)
 
         if(result)
            return true
@@ -43,6 +43,7 @@ const updateTurma = async function (turma){
 
 const deleteTurma = async function (id){
     try {
+        
         let sql = `delete from tbl_turma where id = ${id}`
 
         result = await prisma.$executeRawUnsafe(sql)

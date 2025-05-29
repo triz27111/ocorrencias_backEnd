@@ -60,6 +60,7 @@ const listarAluno = async function(){
                 dadosAluno.turma = arrayAlunos
 
                 dadosAluno.cargos = resultAluno
+                
                 return dadosAluno
             }else{
                 return message.ERROR_NOT_FOUND //404

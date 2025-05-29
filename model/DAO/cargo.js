@@ -38,20 +38,20 @@ const updateCargo = async function (cargo){
 
 
 //função para deletar uma genero 
-const deleteCargo = async function (id){
+const deleteCargo = async function (id) {
     try {
         let sql = `delete from tbl_cargo where id = ${id}`
 
-        result = await prisma.$executeRawUnsafe(sql)
-  
+        let result = await prisma.$executeRawUnsafe(sql)
+
         if(result)
-            return result
-        else 
-        return false 
+        return result
+    else
+    return false
     } catch (error) {
         return false
     }
-
+    
 }
 
 //função para mostrar todas as genero 
