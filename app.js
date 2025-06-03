@@ -9,6 +9,13 @@ const bodyParserJSON = bodyParser.json()
 // inicializando a utilização do express através da variável app
 const app = express()
 
+//Import das Controllers do projeto
+const ControllerEducador =  require('./controller/educador/Controllereducador.js')
+const ControllerCargo = require('./controller/cargo/controllerCargo.js')
+const ControllerAluno = require('./controller/alunos/ControllerAlunos.js')
+const ControllerTurma = require('./controller/turma/controllerTurma.js')
+
+
 // request = chegada de dados
 // response = saída de dados
 app.use((request, response, next) => {
@@ -18,28 +25,20 @@ app.use((request, response, next) => {
     //ativa as configurações do header para o cors 
     app.use(cors(
         {
-        origin: 'http://127.0.0.1:5500/',
+        origin: 'http://127.0.0.1:5503',
         methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS']
         }
     ))
-    app.use(cors({      
-        origin: 'http://127.0.0.1:5500',
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']}
+    app.use(cors(
+        {      
+        origin: 'http://127.0.0.1:5503',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    }
 
 
     ))
     next()
 })
-
-
-const ControllerEducador =  require('./controller/educador/Controllereducador.js')
-const ControllerCargo =  require('./controller/cargo/controllerCargo.js')
-
-const ControllerEducador = require('./controller/educador/Controllereducador.js')
-const ControllerCargo = require('./controller/cargo/controllerCargo.js')
-
-const ControllerAluno = require('./controller/alunos/ControllerAlunos.js')
-const ControllerTurma = require('./controller/turma/controllerTurma.js')
 
 /////////////////////////// E D U C A D O R ///////////////////////////
 
@@ -76,7 +75,7 @@ app.get('/v1/registro-ocorrencias/cargo/:id', cors(), async function (request, r
 })
 
 
-//Endpoint pesquisar e deletar musicas pelo id
+//Endpoint pesquisar e deletar cargo pelo id
 app.delete('/v1/registro-ocorrencias/cargo/:id', cors(), async function(request, response){
    let idCargo = request.params.id
 
@@ -85,13 +84,6 @@ app.delete('/v1/registro-ocorrencias/cargo/:id', cors(), async function(request,
 
    response.status(resultCargo.status_code)
    response.json(resultCargo)
-
-})
-
-app.delete('/v1/registro-ocorrencias/cargo/:id', cors(), async function (request, response) {
-    let idCargo = request.params.id
-    let resultCargo = await ControllerCargo.excluirCargo(idCargo)
-    response.status(resultCargo.status_code).json(resultCargo)
 
 })
 
@@ -105,7 +97,7 @@ app.put('/v1/registro-ocorrencias/cargo/:id', cors(), bodyParserJSON, async func
 
 /////////////////////////// A L U N O ///////////////////////////
 
-u
+
 //endpoint para adiconar novos alunos 
 
 app.post('/v1/registro-ocorrencias/alunos', cors(), bodyParserJSON, async function (request, response) {
@@ -121,7 +113,6 @@ app.get('/v1/registro-ocorrencias/alunos', cors(), bodyParserJSON, async functio
 })
 ////////////////////////////////////////////// T U R M A ///////////////////////////////////////////////////
 
-/////////////////////////// T U R M A ///////////////////////////
 
 app.post('/v1/registro-ocorrencias/turma', cors(), bodyParserJSON, async function (request, response) {
     let contentType = request.headers['content-type']
@@ -130,14 +121,7 @@ app.post('/v1/registro-ocorrencias/turma', cors(), bodyParserJSON, async functio
     response.status(resultTurma.status_code).json(resultTurma)
 })
 
-/////////////////////////// S E R V I D O R ///////////////////////////
-
-app.listen('8080', function () {
-    console.log('API funcionando e aguardando requisições...')
-})
-
-
-//Endpoint para listar todos os cargos
+//Endpoint para listar todos os turma
 app.get('/v1/registro-ocorrencias/turma',cors(), bodyParserJSON, async function(request, response){
     let  resultTurma = await ControllerTurma.listarTurma()
 

@@ -5,11 +5,15 @@ const prisma = new PrismaClient()
 const insertTurma = async function(turma){
     try {
         let sql = `insert into tbl_turma (nome,
-                                          periodo
+                                          periodo,
+                                          curso,
+                                          max_alunos
                                            )
                                           values(
                                           '${turma.nome}',
-                                          '${turma.periodo}'
+                                          '${turma.periodo}',
+                                          '${turma.curso}',
+                                          '${turma.max_alunos}'
                                           )`
 
         let result = await prisma.$executeRawUnsafe (sql)
@@ -19,7 +23,6 @@ const insertTurma = async function(turma){
         else
          return false
     } catch (error) {
-       
         return false
     }
 }

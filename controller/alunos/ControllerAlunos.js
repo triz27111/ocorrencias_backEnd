@@ -6,6 +6,8 @@ const controllerTurma = require('../../controller/turma/controllerTurma.js')
 
 
 const inserirAluno = async function (alunos, contentType){
+    
+    //datatime
     const data = new Date()
     const dia = String(data.getDate()).padStart(2, '0')
     const mes = String(data.getMonth() + 1).padStart(2, '0')
@@ -55,18 +57,16 @@ const listarAluno = async function(){
 
                 for (const itemAluno  of resultAluno) {
 
-                let dadosTurma = await controllerTurma.listarTurma(itemAluno.id_turma)
+                let dadosTurma = await controllerTurma.buscarTurma(itemAluno.id_turma)
 
-                itemAluno.turma = dadosTurma.turma
+                itemAluno.turmas = dadosTurma.turmas
                 
                 delete itemAluno.id_turma
                 arrayAluno.push(itemAluno)  
 
                 }
-                dadosAluno.turma = arrayAluno
+                dadosAluno.turmas = arrayAluno
 
-                dadosAluno.cargos = resultAluno
-                
                 return dadosAluno
             }else{
                 return message.ERROR_NOT_FOUND //404
