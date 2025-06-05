@@ -21,7 +21,10 @@ references tbl_cargo(id)
 
 create table tbl_turma(
 	id int not null primary key auto_increment,
-    nome varchar(45) not null
+    nome varchar(45) not null,
+    curso varchar(45) not null,
+    periodo varchar(45) not null,
+    max_alunos int not null
 );
 
 create table tbl_alunos(

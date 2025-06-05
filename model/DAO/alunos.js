@@ -20,7 +20,6 @@ const insertAlunos = async function(alunos){
                                             )`
                                             
           let result = await prisma.$executeRawUnsafe (sql)
-          console.log(sql)
           
           if(result)
            return true

@@ -9,7 +9,7 @@ const inserirTurma = async function (turma, contentType) {
             turma.nome == '' || turma.nome == null || turma.nome == undefined || turma.nome.length > 45 ||  
             turma.periodo == '' || turma.periodo == null || turma.periodo == undefined || turma.periodo.length > 45||
             turma.curso == '' || turma.curso == null || turma.curso == undefined || turma.curso.length > 45||
-            turma.periodo == '' || turma.periodo == null || turma.periodo == undefined || turma.max_alunos.length > 45
+            turma.periodo == '' || turma.periodo == null || turma.periodo == undefined || turma.max_alunos == ''|| turma.max_alunos == null 
         ){
             return message.ERROR_REQUIRED_FIELDS //400
         }else{

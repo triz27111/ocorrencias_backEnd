@@ -43,8 +43,6 @@ const deleteCargo = async function (id) {
         
         let sql = `delete from tbl_cargo where id = ${id}`
 
-     
-
         let result = await prisma.$executeRawUnsafe(sql)
 
         if(result)

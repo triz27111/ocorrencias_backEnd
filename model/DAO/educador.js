@@ -4,7 +4,7 @@ const prisma = new PrismaClient
 
 //função para inserir um educador 
 const insertEducador = async function(educador){
-    console.log(educador)
+
     try {
         let sql = `insert into tbl_educador (Nome,
                                             Senha,

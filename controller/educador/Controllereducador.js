@@ -50,7 +50,7 @@ const listarEducador = async function(){
                 for(const itemEducador of resultEducador){
                     let dadosCargo = await ControllerCargo.buscarCargo(itemEducador.id_cargo)
 
-                    itemEducador.cargo = dadosCargo.cargo
+                    itemEducador.cargos = dadosCargo.cargos
 
                     delete itemEducador.id_cargo
 

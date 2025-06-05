@@ -1,3 +1,8 @@
+//npx prisma init -  conectar com o banco sql
+//npx prisma generate - Serve para gerar os arquivos do Prisma Client com base no seu schema.prisma
+//npx prisma migrate migrate dev - Cria e aplica migrações no banco de dados durante o desenvolvimento.
+
+
 const { PrismaClient } = require("@prisma/client")
 
 const prisma = new PrismaClient()
@@ -7,13 +12,12 @@ const insertTurma = async function(turma){
         let sql = `insert into tbl_turma (nome,
                                           periodo,
                                           curso,
-                                          max_alunos
-                                           )
+                                          max_alunos)
                                           values(
                                           '${turma.nome}',
                                           '${turma.periodo}',
                                           '${turma.curso}',
-                                          '${turma.max_alunos}'
+                                          ${turma.max_alunos}
                                           )`
 
         let result = await prisma.$executeRawUnsafe (sql)
@@ -46,10 +50,9 @@ const updateTurma = async function (turma){
 
 const deleteTurma = async function (id){
     try {
-        
         let sql = `delete from tbl_turma where id = ${id}`
 
-        result = await prisma.$executeRawUnsafe(sql)
+        let result = await prisma.$executeRawUnsafe(sql)
   
         if(result)
             return result
