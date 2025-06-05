@@ -12,7 +12,7 @@ const app = express()
 //Import das Controllers do projeto
 const ControllerEducador =  require('./controller/educador/Controllereducador.js')
 const ControllerCargo = require('./controller/cargo/controllerCargo.js')
-const ControllerAluno = require('./controller/alunos/ControllerAlunos.js')
+const ControllerAluno = require('./controller/alunos/ControllerAluno.js')
 const ControllerTurma = require('./controller/turma/controllerTurma.js')
 
 
@@ -25,13 +25,13 @@ app.use((request, response, next) => {
     //ativa as configurações do header para o cors 
     app.use(cors(
         {
-        origin: 'http://127.0.0.1:5503',
+        origin: 'http://127.0.0.1:5504',
         methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS']
         }
     ))
     app.use(cors(
         {      
-        origin: 'http://127.0.0.1:5503',
+        origin: 'http://127.0.0.1:5504',
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
     }
 
@@ -54,6 +54,30 @@ app.get('/v1/registro-ocorrencias/educador', cors(), async function (request, re
     response.status(resultEducador.status_code).json(resultEducador)
 })
 
+app.get('/v1/registro-ocorrencias/educador/:id', cors(), async function (request, response) {
+    let idEducador = request.params.id
+    let resultEducador = await ControllerEducador.buscarEducador(idEducador)
+    response.status(resultEducador.status_code).json(resultEducador)
+})
+
+app.delete('/v1/registro-ocorrencias/educador/:id', cors(), async function(request, response){
+    let idEducador = request.params.id
+    let resultEducador = await ControllerEducador.excluirEducador(idEducador)
+ 
+    response.status(resultEducador.status_code)
+    response.json(resultEducador)
+ 
+ })
+
+ app.put('/v1/registro-ocorrencias/educador/:id', cors(), bodyParserJSON, async function (request, response) {
+    let contentType = request.headers['content-type']
+    let idEducador = request.params.id
+    let dadosbody = request.body
+    let resultEducador = await ControllerEducador.atualizarEducador(idEducador, dadosbody, contentType)
+    response.status(resultEducador.status_code).json(resultEducador)
+})
+
+
 /////////////////////////// C A R G O ///////////////////////////
 
 app.post('/v1/registro-ocorrencias/cargo', cors(), bodyParserJSON, async function (request, response) {
@@ -74,8 +98,6 @@ app.get('/v1/registro-ocorrencias/cargo/:id', cors(), async function (request, r
     response.status(resultCargo.status_code).json(resultCargo)
 })
 
-
-//Endpoint pesquisar e deletar cargo pelo id
 app.delete('/v1/registro-ocorrencias/cargo/:id', cors(), async function(request, response){
    let idCargo = request.params.id
 
@@ -103,14 +125,38 @@ app.put('/v1/registro-ocorrencias/cargo/:id', cors(), bodyParserJSON, async func
 app.post('/v1/registro-ocorrencias/alunos', cors(), bodyParserJSON, async function (request, response) {
     let contentType = request.headers['content-type']
     let dadosbody = request.body
-    let resultAluno = await ControllerAluno.inserirAluno(dadosbody, contentType)
+    let resultAluno = await ControllerAluno.inserirAlunos(dadosbody, contentType)
     response.status(resultAluno.status_code).json(resultAluno)
 })
 
 app.get('/v1/registro-ocorrencias/alunos', cors(), bodyParserJSON, async function (request, response) {
-    let resultAluno = await ControllerAluno.listarAluno()
+    let resultAluno = await ControllerAluno.listarAlunos()
     response.status(resultAluno.status_code).json(resultAluno)
 })
+
+app.get('/v1/registro-ocorrencias/alunos/:id', cors(), async function (request, response) {
+    let idAluno = request.params.id
+    let resultAluno = await ControllerAluno.busarAlunos(idAluno)
+
+    response.status(resultAluno.status_code).json(resultAluno)
+})
+
+app.delete('/v1/registro-ocorrencias/alunos/:id', cors(), async function(request, response){
+    let idAluno = request.params.id
+    let resultAluno = await ControllerAluno.excluirAlunos(idAluno)
+ 
+    response.status(resultAluno.status_code)
+    response.json(resultAluno)
+ })
+
+ app.put('/v1/registro-ocorrencias/alunos/:id', cors(), bodyParserJSON, async function (request, response) {
+    let contentType = request.headers['content-type']
+    let idAluno = request.params.id
+    let dadosbody = request.body
+    let resultAluno = await ControllerAluno.atualizarAlunos(idAluno, dadosbody, contentType)
+    response.status(resultAluno.status_code).json(resultAluno)
+})
+
 ////////////////////////////////////////////// T U R M A ///////////////////////////////////////////////////
 
 

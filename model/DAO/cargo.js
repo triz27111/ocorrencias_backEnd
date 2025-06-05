@@ -87,7 +87,7 @@ const selectByIdCargo = async function (id){
     } catch (error) {
         return false 
     }
-    }
+}
 
     module.exports = {
         insertCargo,

@@ -4,7 +4,6 @@ const prisma = new PrismaClient
 
 //função para inserir um educador 
 const insertEducador = async function(educador){
-
     try {
         let sql = `insert into tbl_educador (Nome,
                                             Senha,
@@ -28,13 +27,47 @@ const insertEducador = async function(educador){
           return false
 
     } catch (error) {
-        console.log(error)
         return false
     }
 }
 
+const updateEducador = async function (educador){
+    try {
+        let sql = `update tbl_educador set nome = '${educador.nome}'
+        where id = '${educador.id}'`
+
+        let result = await prisma.$executeRawUnsafe(sql)
+
+        if(result)
+            return true 
+        else 
+            return false 
+        
+    } catch (error) {
+        return false 
+    }
+}
+
+const deleteEducador = async function (id) {
+    try {
+        
+        let sql = `delete from tbl_educador where id = ${id}`
+
+        let result = await prisma.$executeRawUnsafe(sql)
+
+        if(result)
+        return result
+    else
+    return false
+    } catch (error) {
+   
+        return false
+    }
+    
+}
+
 //função para listar educadores 
-const selectAllEducadores = async function(){
+const selectAllEducador = async function(){
     try {
         let sql = `select * from tbl_educador order by id desc`
 
@@ -50,8 +83,28 @@ const selectAllEducadores = async function(){
     }
 }
 
+const selectByIdEducador = async function (id){
+    try {
+        let sql = `select * from tbl_educador where id = ${id}`
+
+        let result = await prisma.$queryRawUnsafe(sql)
+
+        if(result)
+            return result
+        else 
+          return false
+
+    } catch (error) {
+        return false 
+    }
+}
+
 module.exports = {
     insertEducador,
-    selectAllEducadores
+    selectAllEducador,
+    deleteEducador,
+    updateEducador,
+    selectByIdEducador
+
 }
 

@@ -31,6 +31,41 @@ const insertAlunos = async function(alunos){
     }
 }
 
+const updateAlunos = async function (alunos){
+    try {
+        let sql = `update tbl_alunos set nome = '${alunos.nome}'
+        where id = '${alunos.id}'`
+
+        let result = await prisma.$executeRawUnsafe(sql)
+
+        if(result)
+            return true 
+        else 
+            return false 
+        
+    } catch (error) {
+        return false 
+    }
+}
+
+const deleteAlunos = async function (id) {
+    try {
+        
+        let sql = `delete from tbl_alunos where id = ${id}`
+
+        let result = await prisma.$executeRawUnsafe(sql)
+
+        if(result)
+        return result
+    else
+    return false
+    } catch (error) {
+   
+        return false
+    }
+    
+}
+
 //função para listar Alunos 
 const selectAllAlunos = async function(){
     try {
@@ -48,8 +83,27 @@ const selectAllAlunos = async function(){
     }
 }
 
+const selectByIdAlunos = async function (id){
+    try {
+        let sql = `select * from tbl_alunos where id = ${id}`
+
+        let result = await prisma.$queryRawUnsafe(sql)
+
+        if(result)
+            return result
+        else 
+          return false
+
+    } catch (error) {
+        return false 
+    }
+}
+
 module.exports = {
    insertAlunos,
-   selectAllAlunos
+   selectAllAlunos,
+   updateAlunos,
+   deleteAlunos,
+   selectByIdAlunos
 }
 
