@@ -8,7 +8,7 @@ const inserirGravidade = async function(Gravidade, contentType){
   try {
     if(String(contentType).toLowerCase() == 'application/json'){
         
-        if(Gravidade.nome == '' || Gravidade.nome == null || Gravidade.nome == undefined || Gravidade.nome.length > 45
+        if(Gravidade.categorias == '' || Gravidade.categorias == null || Gravidade.categorias == undefined || Gravidade.categorias.length > 45
         
         ){
             return message.ERROR_REQUIRED_FIELDS
@@ -32,7 +32,7 @@ const inserirGravidade = async function(Gravidade, contentType){
 const atualizarGravidade = async function (id, Gravidade, contentType) {
     try {
         if (String(contentType).toLowerCase() == 'application/json') {
-            if (Gravidade.nome == '' || Gravidade.nome == null || Gravidade.nome == undefined || Gravidade.nome.length > 100 ||
+            if (Gravidade.categorias == '' || Gravidade.categorias == null || Gravidade.categorias == undefined || Gravidade.categorias.length > 100 ||
                 id == '' || id == null || id == undefined || isNaN(id)
             ) {
                 return message.ERROR_REQUIRED_FIELDS
