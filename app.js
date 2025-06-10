@@ -14,6 +14,9 @@ const ControllerEducador =  require('./controller/educador/Controllereducador.js
 const ControllerCargo = require('./controller/cargo/controllerCargo.js')
 const ControllerAluno = require('./controller/alunos/ControllerAluno.js')
 const ControllerTurma = require('./controller/turma/controllerTurma.js')
+const ControllerOcorrencia = require('./controller/ocorrecia/controllerOcorrencia.js')
+const ControllerTipo = require('./controller/TipoOcorrencia/ControllerTipoOcorrencia.js')
+const controllerGravidade = require('./controller/gravidade/ControllerGravidade.js')
 
 
 // request = chegada de dados
@@ -25,7 +28,7 @@ app.use((request, response, next) => {
     //ativa as configurações do header para o cors 
     app.use(cors(
         {
-        origin: 'http://127.0.0.1:5504',
+        origin: 'http://10.107.134.29:5504',
         methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS']
         }
     ))
@@ -136,7 +139,7 @@ app.get('/v1/registro-ocorrencias/alunos', cors(), bodyParserJSON, async functio
 
 app.get('/v1/registro-ocorrencias/alunos/:id', cors(), async function (request, response) {
     let idAluno = request.params.id
-    let resultAluno = await ControllerAluno.busarAlunos(idAluno)
+    let resultAluno = await ControllerAluno.buscarAlunos(idAluno)
 
     response.status(resultAluno.status_code).json(resultAluno)
 })
@@ -208,6 +211,126 @@ app.put('/v1/registro-ocorrencias/turma/:id', cors(), bodyParserJSON, async func
     response.status(resultTurma.status_code)
     response.json(resultTurma)
 })
+
+////////////////////////////////////////////// O C O R R E N C I A ///////////////////////////////////////////////////
+
+app.post('/v1/registro-ocorrencias/ocorrencia', cors(), bodyParserJSON, async function (request, response) {
+    let contentType = request.headers['content-type']
+    let dadosbody = request.body
+    let resultOcorrencia = await ControllerOcorrencia.inserirOcorrencia(dadosbody, contentType)
+    response.status(resultOcorrencia.status_code).json(resultOcorrencia)
+})
+
+app.get('/v1/registro-ocorrencias/ocorrencia',cors(), bodyParserJSON, async function(request, response){
+    let  resultOcorrencia = await ControllerOcorrencia.listaOcorrencia()
+
+    response.status(resultOcorrencia.status_code)
+    response.json(resultOcorrencia)
+})
+
+app.get('/v1/registro-ocorrencias/ocorrencia/:id', cors(), async function (request, response) {
+    let idOcorrencia = request.params.id
+    let resultOcorrencia = await ControllerOcorrencia.buscarOcorrencia(idOcorrencia)
+
+    response.status(resultOcorrencia.status_code).json(resultOcorrencia)
+})
+
+app.delete('/v1/registro-ocorrencias/ocorrencia/:id', cors(), async function(request, response){
+    let idOcorrencia = request.params.id
+    let resultOcorrencia = await ControllerOcorrencia.excluirOcorrencia(idOcorrencia)
+ 
+    response.status(resultOcorrencia.status_code)
+    response.json(resultOcorrencia)
+ })
+
+app.put('/v1/registro-ocorrencias/ocorrencia/:id', cors(), bodyParserJSON, async function (request, response) {
+    let contentType = request.headers['content-type']
+    let idOcorrencia = request.params.id
+    let dadosbody = request.body
+    let resultOcorrencia = await ControllerOcorrencia.atualizarOcorrencia(idOcorrencia, dadosbody, contentType)
+    response.status(resultOcorrencia.status_code).json(resultOcorrencia)
+})
+
+////////////////////////////////////////////// T I P O S  D E  O C O R R E N C I A ///////////////////////////////////////////////////
+
+app.post('/v1/registro-ocorrencias/tipo', cors(), bodyParserJSON, async function (request, response) {
+    let contentType = request.headers['content-type']
+    let dadosbody = request.body
+    let resultTipo = await ControllerTipo.inserirTipos(dadosbody, contentType)
+    response.status(resultTipo.status_code).json(resultTipo)
+})
+
+app.get('/v1/registro-ocorrencias/tipo',cors(), bodyParserJSON, async function(request, response){
+    let  resultTipo = await ControllerTipo.listarTipo()
+
+    response.status(resultTipo.status_code)
+    response.json(resultTipo)
+})
+
+app.get('/v1/registro-ocorrencias/tipo/:id',cors(), bodyParserJSON, async function(request, response){
+   let idTipo = request.params.id
+   let resultTipo = await ControllerTipo.buscarTipo(idTipo)
+
+   response.status(resultTipo.status_code).json(resultTipo)
+})
+
+app.delete('/v1/registro-ocorrencias/tipo/:id', cors(), async function(request, response){
+    let idTipo = request.params.id
+    let resultTipo = await ControllerTipo.excluirTipo(idTipo)
+ 
+    response.status(resultTipo.status_code)
+    response.json(resultTipo)
+})
+
+app.put('/v1/registro-ocorrencias/tipo/:id', cors(), bodyParserJSON, async function (request, response) {
+    let contentType = request.headers['content-type']
+    let idTipo = request.params.id
+    let dadosbody = request.body
+    let resultTipo = await ControllerTipo.atualizarTipos(idTipo, dadosbody, contentType)
+    response.status(resultTipo.status_code).json(resultTipo)
+})
+
+////////////////////////////////////////////// G R A V I D A D E ///////////////////////////////////////////////////
+
+app.post('/v1/registro-ocorrencias/gravidade', cors(), bodyParserJSON, async function (request, response) {
+    let contentType = request.headers['content-type']
+    let dadosbody = request.body
+    let resultGravidade = await controllerGravidade.inserirGravidade(dadosbody, contentType)
+    response.status(resultGravidade.status_code).json(resultGravidade)
+})
+
+app.get('/v1/registro-ocorrencias/gravidade',cors(), bodyParserJSON, async function(request, response){
+    let  resultGravidade = await controllerGravidade.listarGravidade()
+
+    response.status(resultGravidade.status_code)
+    response.json(resultGravidade)
+})
+
+app.get('/v1/registro-ocorrencias/gravidade/:id', cors(), async function (request, response) {
+    let idGravidade = request.params.id
+    let resultGravidade = await controllerGravidade.buscarGravidade(idGravidade)
+
+    response.status(resultGravidade.status_code).json(resultGravidade)
+})
+
+app.delete('/v1/registro-ocorrencias/gravidade/:id', cors(), async function(request, response){
+    let idGravidade = request.params.id
+    let resultGravidade = await controllerGravidade.excluirGravidade(idGravidade)
+ 
+    response.status(resultGravidade.status_code)
+    response.json(resultGravidade)
+})
+
+app.put('/v1/registro-ocorrencias/gravidade/:id', cors(), bodyParserJSON, async function (request, response) {
+    let contentType = request.headers['content-type']
+    let idGravidade = request.params.id
+    let dadosbody = request.body
+    let resultGravidade = await controllerGravidade.atualizarGravidade(idGravidade, dadosbody, contentType)
+    response.status(resultGravidade.status_code).json(resultGravidade)
+})
+
+
+
 
 app.listen( 8080, function(){
     console.log('API funcionando e aguardando requisições..')

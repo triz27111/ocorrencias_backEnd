@@ -17,7 +17,7 @@ const inserirAlunos = async function (alunos, contentType){
     try {
         if(String(contentType).toLowerCase() == 'application/json'){
             if(
-                alunos.nome == '' || alunos.nome == null || alunos.nome == undefined || alunos.nome.length > 45 ||
+                alunos.nome == '' || alunos.nome == null || alunos.nome == undefined || alunos.nome.length > 100 ||
                 alunos.matricula == '' || alunos.matricula == null || alunos.matricula == undefined || alunos.matricula.length > 45 ||
                 alunos.data_nascimento == '' || alunos.data_nascimento == null || alunos.data_nascimento == undefined || alunos.data_nascimento.length > 100 ||
                 alunos.id_turma == '' || alunos.id_turma == undefined 
@@ -36,7 +36,7 @@ const inserirAlunos = async function (alunos, contentType){
             return message.ERROR_CONTENT_TYPE //415
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER//500
     }
 }
@@ -145,7 +145,7 @@ const excluirAlunos = async function (id) {
     }
 }
 
-const busarAlunos = async function (id) {
+const buscarAlunos = async function (id) {
     try {
         if (id == '' || id == undefined || id == null || isNaN(id)) {
             return message.ERROR_REQUIRED_FIELDS // 400
@@ -178,5 +178,5 @@ module.exports = {
     listarAlunos,
     atualizarAlunos,
     excluirAlunos,
-    busarAlunos
+    buscarAlunos
 }

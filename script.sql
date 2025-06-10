@@ -35,7 +35,32 @@ create table tbl_alunos(
     id_turma int not null,
     constraint FK_TURMA_ALUNOS
     foreign key (id_turma) references tbl_turma(id)
-)
+);
+
+-- Tabela de tipos de ocorrência
+CREATE TABLE tbl_tipo_ocorrencia (
+  id    INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  tipo  VARCHAR(45) NOT NULL
+);
+
+-- Tabela de gravidades
+CREATE TABLE tbl_gravidade (
+  id          INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  categorias  TEXT NOT NULL
+);
+
+-- Tabela de ocorrência, com FKs apontando pros nomes corretos
+CREATE TABLE tbl_ocorrencia (
+  id            INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  relato        VARCHAR(500) NOT NULL,
+  id_aluno      INT NOT NULL,
+  id_tipo       INT NOT NULL,
+  id_gravidade  INT NOT NULL,
+  
+  CONSTRAINT FK_ALUNOS_OCORRENCIA      FOREIGN KEY (id_aluno)     REFERENCES tbl_alunos(id),
+  CONSTRAINT FK_TIPO_OCORRENCIA       FOREIGN KEY (id_tipo)      REFERENCES tbl_tipo_ocorrencia(id),
+  CONSTRAINT FK_GRAVIDADE_OCORRENCIA  FOREIGN KEY (id_gravidade)  REFERENCES tbl_gravidade(id)
+);
 
 show tables ;
 

@@ -6,7 +6,7 @@ const prisma = new PrismaClient
 
 const insertGravidade = async function(gravidade){
     try {
-        let sql = `insert into tbl_categorias_ocorrenica (categorias)
+        let sql = `insert into tbl_gravidade (categorias)
                                              values(
                                                 '${gravidade.categorias}'
                                              )`

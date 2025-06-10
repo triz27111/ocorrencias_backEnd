@@ -9,9 +9,9 @@ const inserirEducador = async function (educador, contentType){
     try {
         if(String(contentType).toLowerCase() == 'application/json'){
             if(
-                educador.nome == '' || educador.nome == null || educador.nome == undefined || educador.nome.length > 45 ||
+                educador.nome == '' || educador.nome == null || educador.nome == undefined || educador.nome.length > 100 ||
                 educador.senha == '' || educador.senha == null || educador.senha == undefined || educador.senha.length > 45 ||
-                educador.email == '' || educador.email == null || educador.email == undefined || educador.email.length > 45 ||
+                educador.email == '' || educador.email == null || educador.email == undefined || educador.email.length > 100 ||
                 educador.palavra_chave == '' || educador.palavra_chave == null || educador.palavra_chave == undefined || educador.palavra_chave.length > 100||
                 educador.id_cargo == '' || educador.id_cargo == undefined 
             ){
@@ -38,9 +38,10 @@ const atualizarEducador = async function(id, educador, contentType){
     if (String(contentType).toLowerCase() == 'application/json') {
         if (educador.nome == '' || educador.nome == null || educador.nome == undefined || educador.nome.length > 100 ||
             educador.senha == '' || educador.senha == null || educador.senha == undefined || educador.senha.length > 45 ||
-            educador.email == '' || educador.email == null || educador.email == undefined || educador.email.length > 45 ||
+            educador.email == '' || educador.email == null || educador.email == undefined || educador.email.length > 100 ||
             educador.palavra_chave == '' || educador.palavra_chave == null || educador.palavra_chave == undefined || educador.palavra_chave.length > 100 ||
-            id == '' || id == null || id == undefined || isNaN(id)
+            educador.id_cargo == '' || educador.id_cargo == null || educador.id_cargo == undefined  ||
+            id == null || id == undefined || id == ""  || isNaN(id) 
         ) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
@@ -50,7 +51,7 @@ const atualizarEducador = async function(id, educador, contentType){
             if (result != false || typeof (result) == 'object') {
                 if (result.length > 0) {
                     
-                    cargo.id = id
+                    educador.id = id
                     let resultEducador = await educadorDAO.updateEducador(educador)
                     if (resultEducador) {
                         return message.SUCESS_UPDATE_ITEM

@@ -33,7 +33,13 @@ const insertEducador = async function(educador){
 
 const updateEducador = async function (educador){
     try {
-        let sql = `update tbl_educador set nome = '${educador.nome}'
+        let sql = `update tbl_educador set nome =    '${educador.nome}',
+                                           senha = '${educador.senha}',
+                                           email = '${educador.email}',
+                                           palavra_chave = '${educador.palavra_chave}',
+                                           id_cargo = '${educador.id_cargo}'
+
+
         where id = '${educador.id}'`
 
         let result = await prisma.$executeRawUnsafe(sql)
