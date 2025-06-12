@@ -81,6 +81,7 @@ const selectAllAlunos = async function(){
             return false
 
     } catch (error) {
+
         return false
     }
 }

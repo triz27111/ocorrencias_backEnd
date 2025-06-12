@@ -60,7 +60,7 @@ const deleteTipo = async function (id) {
 
 const selectAllTipo  = async function (){
     try {
-        sql = `select * from tbl_tipo_ocorrencia order by id desc`
+        let sql = `select * from tbl_tipo_ocorrencia order by id desc`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -68,6 +68,7 @@ const selectAllTipo  = async function (){
             return result
         else
             return false
+        
     } catch (error) {
         return false 
     }

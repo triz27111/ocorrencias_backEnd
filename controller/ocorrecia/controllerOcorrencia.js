@@ -46,41 +46,51 @@ const listaOcorrencia = async function(){
         let resultOcorrencia = await ocorrenciaDAO.selectAllOcorrencia()
 
         if(resultOcorrencia != false || typeof(resultOcorrencia) == 'object'){
-            if(resultAluno.length > 0){
+            if(resultOcorrencia.length > 0){
 
                 dadosOcorrencia.status = true
-                dadOcorrenciasOcorrencia.status_code = 200,
+                dadosOcorrencia.status_code = 200,
                 dadosOcorrencia.itens = resultOcorrencia.length
 
                 for (const itemOcorrencia of resultOcorrencia) {
 
                 let dadosAlunos = await controllerAluno.buscarAlunos(itemOcorrencia.id_aluno)
+                let dadosTipo = await controllerTipoOcorrencia.buscarTipo(itemOcorrencia.id_tipo)
+                let dadosGravidade = await controllerGravidade.buscarGravidade(itemOcorrencia.id_gravidade)
+
+
                 itemOcorrencia.alunos = dadosAlunos.alunos
+                itemOcorrencia.tipos = dadosTipo.tipos
+                itemOcorrencia.Gravidades = dadosGravidade.Gravidades
+
                 
                 delete itemOcorrencia.id_aluno
+                delete itemOcorrencia.id_tipo
+                delete itemOcorrencia.id_gravidade
                 arrayOcorrencia.push(itemOcorrencia) 
+                
                 
                 }
 
-                for (const itemOcorrencia of resultOcorrencia) {
+                // for (const itemOcorrencia of resultOcorrencia) {
 
-                    let dadosTipo = await controllerTipoOcorrencia.buscarTipo(itemOcorrencia.id_tipo)
-                    itemOcorrencia.tipos = dadosTipo.tipos
+                //     let dadosTipo = await controllerTipoOcorrencia.buscarTipo(itemOcorrencia.id_tipo)
+                //     itemOcorrencia.tipos = dadosTipo.tipos
     
-                    delete itemOcorrencia.id_tipo
-                    arrayOcorrencia.push(itemOcorrencia)
+                //     delete itemOcorrencia.id_tipo
+                //     arrayOcorrencia.push(itemOcorrencia)
     
-                }
+                // }
 
-                for (const itemOcorrencia of resultOcorrencia) {
+                // for (const itemOcorrencia of resultOcorrencia) {
                      
-                    let dadosGravidade = await controllerGravidade.buscarGravidade(itemOcorrencia.id_gravidade)
-                    itemOcorrencia.gravidade = dadosGravidade.gravidade
+                //     let dadosGravidade = await controllerGravidade.buscarGravidade(itemOcorrencia.id_gravidade)
+                //     itemOcorrencia.Gravidades = dadosGravidade.Gravidades
 
-                    delete itemOcorrencia.id_gravidade
-                    arrayOcorrencia.push(itemOcorrencia)
-                }
-                dadosOcorrencia.Ocorrencia = arrayAluno
+                //     delete itemOcorrencia.id_gravidade
+                //     arrayOcorrencia.push(itemOcorrencia)
+                // }
+                dadosOcorrencia.ocorrencia = arrayOcorrencia
 
                 return dadosOcorrencia
             }else{
@@ -99,7 +109,7 @@ const atualizarOcorrencia = async function (id, ocorrencia, contentType) {
     try {
         if(String(contentType).toLowerCase() == 'application/json'){
             if(
-                ocorrencia.relato == ''      || ocorrencia.relato == null           || ocorrencia.relato == undefined || ocorrencias.relato.length > 100 ||
+                ocorrencia.relato == ''      || ocorrencia.relato == null           || ocorrencia.relato == undefined ||
                 ocorrencia.id_aluno == ''    || ocorrencia.id_aluno  == undefined   ||
                 ocorrencia.id_tipo == ''     || ocorrencia.id_tipo == undefined     ||
                 ocorrencia.id_gravidade == '' || ocorrencia.id_gravidade == undefined 
@@ -107,13 +117,13 @@ const atualizarOcorrencia = async function (id, ocorrencia, contentType) {
                 return message.ERROR_REQUIRED_FIELDS
             } else {
                 
-                let result = await ocorrencia.selectByIdOcorrencia(id)
+                let result = await ocorrenciaDAO.selectByIdOcorrencia(id)
 
                 if (result != false || typeof (result) == 'object') {
                     if (result.length > 0) {
                         
                         ocorrencia.id = id
-                        let resultOcorrencia = await ocorrencia.updateOcorrencia(ocorrencia)
+                        let resultOcorrencia = await ocorrenciaDAO.updateOcorrencia(ocorrencia)
                         if (resultOcorrencia) {
                             return message.SUCESS_UPDATE_ITEM
                         } else {

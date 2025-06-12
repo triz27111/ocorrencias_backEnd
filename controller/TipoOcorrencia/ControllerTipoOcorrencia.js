@@ -38,7 +38,7 @@ const atualizarTipos = async function (id, tipo_ocorrencia, contentType) {
                 return message.ERROR_REQUIRED_FIELDS
             } else {
                 
-                let result = await TiposDAO.selectByIdTipos(id)
+                let result = await TiposDAO.selectByIdTipo(id)
 
                 if (result != false || typeof (result) == 'object') {
                     if (result.length > 0) {

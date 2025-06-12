@@ -67,6 +67,9 @@ show tables ;
 ALTER TABLE tbl_turma
 ADD COLUMN periodo VARCHAR(20) NOT NULL;
 
+ALTER TABLE tbl_ocorrencia
+modify column relato text NOT NULL;
+
 
 select * from tbl_educador;
 
